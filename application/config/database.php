@@ -19,4 +19,4 @@ $config['password'] = '';
 $config['database_type'] = 'mysql';
 
 //database name
-$config['database_name'] = 'uccdb';
+$config['database_name'] = 'uniccdb';

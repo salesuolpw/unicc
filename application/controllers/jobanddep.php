@@ -13,7 +13,10 @@ class jobanddep extends MVC_controller{
 				$id = $_POST['id'];
 				$a = $this->crud->update('departments',array('dep_name'=>$dep),array('id'=>$id));
 				//$a = $this->crud->update('departments',array('id:id','dep_name:dep_name'),array('id'=>$id,'dep_name'=>$dep,));
-				echo $a;
+				if($a==true || $a == 1){
+					echo "Department was successfully updated.";
+				}
+
 		return false;
 		}
 	//add new department
@@ -44,12 +47,22 @@ class jobanddep extends MVC_controller{
 	
 	public function department($id = false){
 	$data['info'] = $this->user->who('employees',$this->session->_get('uid'));
-			
+	$data['current_id'] = $id[1];
 			if($id[0]=='view'){
 			$data['current'] =$c = $this->crud->read('select id,dep_name from departments where id=:id',array('id'=>$id[1]));
 			$data['jobs'] =$c = $this->crud->read('select * from jobs where dep_id=:id',array('id'=>$id[1]));
 				
 			$data['gdep'] = $dept = $this->crud->read('select * from departments');
+			}
+
+			if(isset($id[2])){
+
+				$res = $this->crud->delete('jobs',array('id'=>$id[3]));
+
+					if($res==true){
+						redirect('jobanddep/department/view/'.$id[1]);
+						$data['successremove'] = "<div class='success'>Position was successfully remove.</div>";
+					}
 			}
 			
 			
@@ -68,6 +81,8 @@ class jobanddep extends MVC_controller{
 			if(!is_array($result)){
 					$c = $this->crud->delete('departments',array('id'=>$id));
 					$data['successdel'] = "Department was successfully Remove.";
+					redirect('jobanddep/');
+
 				}else{
 					$data['errordel'] = "<div class='error'>Ooops...You can't remove this Department.Please remove Position under of this Department</div>"; 
 				}
@@ -76,6 +91,19 @@ class jobanddep extends MVC_controller{
 		$this->load->render('admin/jad_',$data);
 		$this->load->render('common/footer_',$data);
 		
+	}
+
+	public function removeposition($id = false){
+	echo $id[0];
+	$data['info'] = $this->user->who('employees',$this->session->_get('uid'));
+	$data['deps'] = $this->crud->read("select * from departments");
+	$data['current'] =$c = $this->crud->read('select id,dep_name from departments where id=:id',array('id'=>$id[0]));
+	$data['jobs'] =$j = $this->crud->read('select * from jobs where dep_id=:id',array('id'=>$id[0]));
+		print_r($c);
+
+	$this->load->render('common/adminheader_',$data);
+		$this->load->render('admin/department_',$data);
+		$this->load->render('common/footer_',$data);
 	}
 			
 	
