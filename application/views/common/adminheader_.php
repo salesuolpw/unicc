@@ -93,13 +93,20 @@ function toccept(id){
 }
 
 function to_modf(dep,id){
-		var close = "<a class='close-reveal-modal g-button red'>&#215;</a>";
-		var conf = "<a href='#' class='g-button green'>Save</a>";
-		var x = "<input type='text' class='to_mfinp' value='"+dep+"' />"+conf+close;
+		var title = "<h1>Department</h1>";
+		var close = "<a class='close-reveal-modal g-button red' style='margin:0'>Cancel</a>";
+		var conf = "<a href='#' class='g-button green' style='margin:0' onClick='tosaveDep("+id+")'>Save</a>";
+		var x = title+"<input type='text' id='thisdep' class='to_mfinp' value='"+dep+"' />"+conf+close;
 		$('#opt2').html(x);
 		
 }
 
+function tosaveDep(bid){
+		var val = $('#thisdep').val();
+		$.post('<?=base_url().'jobanddep/';?>',{mod:true,new_dep:val,id:bid},function(data){
+			alert(data);
+		});
+}
 </script>
 
 <title>Welcome to Admin</title>
@@ -108,7 +115,7 @@ function to_modf(dep,id){
 <div id="myModal" class="reveal-modal large" style="padding:10px">
 			<div id="opt">
 			</div>
-		<a class="close-reveal-modal">&#215;</a>
+		<a class="close-reveal-modal mstyle">&#215;</a>
 </div>
 
 <div id="myModal2" class="reveal-modal small" style="padding:10px">

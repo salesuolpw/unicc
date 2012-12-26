@@ -26,7 +26,7 @@
 						}
 					?>
 							<tr <?php echo $class; ?>>
-								<td style="width:130px"><?php echo $deps[$x]['dep_name']; ?></td>
+								<td style="width:130px"><p id='forMod_<?=$deps[$x]['id'];?>'><?php echo $deps[$x]['dep_name']; ?></p></td>
 								<td><a href="<?=base_url()."jobanddep/department/view/".$deps[$x]['id'];?>">View</a></td>
 								<td class="act" style="text-align:right">
 									<!--<a href="<?=base_url()."admin/jobAndDep/view/".$deps[$x]['id']; ?>" class="g-button blue mini">View</a>//-->

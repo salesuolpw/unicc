@@ -65,3 +65,6 @@ input.chp{width:250px;height:30px;border:1px solid gray;font:14px/1em "Arial"}
 #lefnav{width:230px;text-align:center}
 #sttngs{width:690px}
 .inp-small{width:205px}
+#myModal2 a{margin-right:3px!important}
+.to_mfinp{height:30px;font:bold 13px 'Arial';margin-right:9px}
+.datagrid table p{margin:0}
