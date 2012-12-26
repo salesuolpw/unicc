@@ -104,14 +104,14 @@ function to_modf(dep,id){
 function to_modf_pos(dep,id){
 		var title = "<h1>Position</h1>";
 		var close = "<a class='close-reveal-modal g-button red' style='margin:0'>Cancel</a>";
-		var conf = "<a href='http://localhost/unicc/jobanddep' class='g-button green' style='margin:0' onClick='tosavePos("+id+")'>Save</a>";
-		var x = title+"<input type='text' id='thisdep' class='to_mfinp' value='"+dep+"' />"+conf+close;
+		var conf = "<a href='<?=base_url().'jobanddep/department/view/'.$current_id;?>' class='g-button green' style='margin:0' onClick='tosavePos("+id+")'>Save</a>";
+		var x = title+"<input type='text' id='thispos' class='to_mfinp' value='"+dep+"' />"+conf+close;
 		$('#opt2').html(x);
 		
 }
 function tosavePos(bid){
-		var val = $('#thisdep').val();
-		$.post('<?=base_url().'jobanddep/';?>',{mod:true,new_dep:val,id:bid},function(data){
+		var val = $('#thispos').val();
+		$.post('<?=base_url().'jobanddep/';?>',{modPos:true,new_pos:val,id:bid},function(data){
 			
 			$('p#forMod_'+bid).html(val);
 			

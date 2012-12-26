@@ -8,7 +8,20 @@ class jobanddep extends MVC_controller{
 	public function index(){
 	$data['info'] = $this->user->who('employees',$this->session->_get('uid'));
 	$data['deps'] = $this->crud->read("select * from departments");
-		if(isset($_POST['mod'])){
+	
+	if(isset($_POST['modPos'])){
+		$dep = $_POST['new_pos'];
+				$id = $_POST['id'];
+				//echo $dep . "=".$id;
+
+				$a = $this->crud->update('jobs',array('job_name'=>$dep),array('id'=>$id));
+				//$a = $this->crud->update('departments',array('id:id','dep_name:dep_name'),array('id'=>$id,'dep_name'=>$dep,));
+				if($a==true || $a == 1){
+					echo "Position was successfully updated.";
+				}
+		return false;
+	}
+	if(isset($_POST['mod'])){
 				$dep = $_POST['new_dep'];
 				$id = $_POST['id'];
 				$a = $this->crud->update('departments',array('dep_name'=>$dep),array('id'=>$id));
