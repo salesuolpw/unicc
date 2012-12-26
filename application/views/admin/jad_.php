@@ -30,7 +30,7 @@
 								<td><a href="<?=base_url()."jobanddep/department/view/".$deps[$x]['id'];?>">View</a></td>
 								<td class="act" style="text-align:right">
 									<!--<a href="<?=base_url()."admin/jobAndDep/view/".$deps[$x]['id']; ?>" class="g-button blue mini">View</a>//-->
-									<a href="<?=base_url()."admin/jobAndDep/modify/".$deps[$x]['id'];?>" class="to_modf g-button green mini no-text" title="Modify" data-reveal-id='myModal' id="to_modf/<?=$deps[$x]['id'];?>"><i class="icon-edit icon-white"></i></a>
+									<a href="<?=base_url()."admin/jobAndDep/modify/".$deps[$x]['id'];?>" onClick="to_modf('<?=$deps[$x]['dep_name'];?>',<?=$deps[$x]['id'];?>)" class="g-button green mini no-text" title="Modify" data-reveal-id='myModal2' id="to_modf/<?=$deps[$x]['id'];?>"><i class="icon-edit icon-white"></i></a>
 									<a onclick="return confirm('Are you sure you want to delete this Department?')" href="<?=base_url()."jobanddep/delete/".$deps[$x]['id'];?>" class="g-button red mini no-text" class="Delete" title="Delete"><i class="icon-trash icon-white"></i></a>
 								</td>
 							</tr>
@@ -59,6 +59,7 @@
 		
 			</div>
 						<br class="clear" />
+						
 		</div>
 						
 	</div>

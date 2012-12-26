@@ -19,6 +19,7 @@
 <script type="text/javascript" src="<?=base_url()."public/js/bootstrap-dropdown.js"?>"></script>
 <script type="text/javascript" src="<?=base_url()."public/js/admin_cm.js"?>"></script>
 
+
 <script type="text/javascript">
 $(document).ready(function(){
 
@@ -91,16 +92,29 @@ function toccept(id){
 	});
 }
 
+function to_modf(dep,id){
+		var close = "<a class='close-reveal-modal g-button red'>&#215;</a>";
+		var conf = "<a href='#' class='g-button green'>Save</a>";
+		var x = "<input type='text' class='to_mfinp' value='"+dep+"' />"+conf+close;
+		$('#opt2').html(x);
+		
+}
+
 </script>
 
 <title>Welcome to Admin</title>
 </head>
 <body>
-<div id="myModal" class="reveal-modal large">
-			<h1 id="tottle" class="ttle" style="color:gray"></h1>
+<div id="myModal" class="reveal-modal large" style="padding:10px">
 			<div id="opt">
 			</div>
-			<a class="close-reveal-modal">&#215;</a>
+		<a class="close-reveal-modal">&#215;</a>
+</div>
+
+<div id="myModal2" class="reveal-modal small" style="padding:10px">
+			<div id="opt2">
+			</div>
+		
 </div>
 <div class="container" id="header">
 	<div class="wrapper">
