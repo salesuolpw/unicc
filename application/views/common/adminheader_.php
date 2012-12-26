@@ -5,6 +5,7 @@
 <link href="<?=base_url()."public/css/style.css";?>" type="text/css" rel="stylesheet" media="all">
 <link href="<?=base_url()."public/css/global.css";?>" type="text/css" rel="stylesheet" media="all">
 <link href="<?=base_url()."public/css/g-buttons.css";?>" type="text/css" rel="stylesheet" media="all">
+
 <link href="<?=base_url()."public/css/jquery-ui-1.8.23.custom.css";?>" type="text/css" rel="stylesheet" media="all">
 <link href="<?=base_url()."public/css/reveal.css";?>" type="text/css" rel="stylesheet" media="all">
 <style type="text/css">
@@ -17,8 +18,10 @@
 <script type="text/javascript" src="<?=base_url()."public/js/jquery.reveal.js"?>"></script>
 <script type="text/javascript" src="<?=base_url()."public/js/bootstrap-dropdown.js"?>"></script>
 <script type="text/javascript" src="<?=base_url()."public/js/admin_cm.js"?>"></script>
+
 <script type="text/javascript">
 $(document).ready(function(){
+
 		//select department
 		$('.slectdep').click(function(){
 				var t = this.title;
