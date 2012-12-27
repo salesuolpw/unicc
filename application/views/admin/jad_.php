@@ -1,4 +1,11 @@
-
+<div class="container" id="menu-con">
+	<div class="wrapper">
+			<ul id="dash-b">
+					<li><a href="<?=base_url()."jobanddep/position/";?>" class="g-button green" data-reveal-id="myModal" onClick="addPos()"><i class="icon-white icon-plus-sign"></i> Add Position</a></li>
+						
+				</ul>
+	</div>
+</div>
 <div class="container" id="admin">
 	<div class="wrapper minh">
 					<h1 class="title2">Departments and Positions</h1>

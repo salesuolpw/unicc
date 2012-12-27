@@ -1,4 +1,12 @@
-
+<div class="container" id="menu-con">
+	<div class="wrapper">
+			<ul id="dash-b">
+					<li><a href="<?=base_url()."jobanddep/position/";?>" class="g-button green" data-reveal-id="myModal" onClick="addPos()"><i class="icon-white icon-plus-sign"></i> Add Position</a></li>
+					<li><a href="<?=base_url()."jobanddep/";?>" class="g-button green" ><i class="icon-white icon-plus-sign"></i>Departments</a></li>
+						
+				</ul>
+	</div>
+</div>
 <div class="container" id="admin">
 	<div class="wrapper minh">
 					<h1 class="title2">Departments and Positions</h1>
@@ -16,7 +24,7 @@
 							
 										
 										foreach($gdep as $key){
-										echo "<li><a href='".base_url()."jobanddep/department/".$key['id']."' class='slectdep' id='dp_".$key['id']."' title='".$key['dep_name']."'>".$key['dep_name']."</a></li>";
+										echo "<li><a href='".base_url()."jobanddep/department/view/".$key['id']."' class='slectdep' id='dp_".$key['id']."' title='".$key['dep_name']."'>".$key['dep_name']."</a></li>";
 										}
 										
 										
@@ -47,23 +55,7 @@
 						?>
 						</table>
 					</div>
-					<div class="right addn">
-			<h1 class="ttle brd">Add Positions</h1>
-				<form action="<?=base_url()."jobanddep";?>" name="add_dep" method="post">
-					<?=(isset($rs)) ? $rs : null;?>
-					<?=(isset($error)) ? $error : null;?>
-			<p>Department Name:<br />
-			<input type="text" name="dep_n" value="" class="inp-search">
-			</p>
-			<p>Add Position<br />
-			<input type="text" value="" name="pos[]" class="inp-search"> <a href="#" onClick="addmore()">[+]Add more</a>
-			</p>
-			<span id="addmorespan">
-			</span>
-			<p><input type="submit" name="adddep" value="Save" class="g-button blue small"/></p>
-			</form>
-		
-			</div>
+				
 					<br class="clear" />
 					</div>
 					

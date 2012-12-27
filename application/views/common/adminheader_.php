@@ -129,6 +129,9 @@ function tosaveDep(bid){
 		});
 }
 
+function addPos(){
+	$('#opt').load('<?=base_url().'jobanddep/addpos';?>');
+}
 
 </script>
 

@@ -61,6 +61,8 @@ class jobanddep extends MVC_controller{
 	public function department($id = false){
 	$data['info'] = $this->user->who('employees',$this->session->_get('uid'));
 	$data['current_id'] = $id[1];
+	if(!isset($id[0]) || !isset($id[1])){redirect('jobanddep');}
+	
 			if($id[0]=='view'){
 			$data['current'] =$c = $this->crud->read('select id,dep_name from departments where id=:id',array('id'=>$id[1]));
 			$data['jobs'] =$c = $this->crud->read('select * from jobs where dep_id=:id',array('id'=>$id[1]));
@@ -117,6 +119,13 @@ class jobanddep extends MVC_controller{
 	$this->load->render('common/adminheader_',$data);
 		$this->load->render('admin/department_',$data);
 		$this->load->render('common/footer_',$data);
+	}
+
+	public function addpos(){
+		$data['deps'] = $this->crud->read("select * from departments");
+	$data['current'] =$c = $this->crud->read('select id,dep_name from departments where id=:id',array('id'=>$id[0]));
+	$data['jobs'] =$j = $this->crud->read('select * from jobs where dep_id=:id',array('id'=>$id[0]));
+		$this->load->render('admin/add_position');
 	}
 			
 	
