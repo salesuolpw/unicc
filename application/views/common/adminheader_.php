@@ -133,6 +133,28 @@ function addPos(){
 	$('#opt').load('<?=base_url().'jobanddep/addpos';?>');
 }
 
+function thisdep(dep,id){
+	$('#tdep').html(dep);
+	$('#dep_n').val(id);
+}
+
+function validate(){
+	var dep = $('#dep_n').val();
+
+	$('.positionko').each(function(){
+  		 var x = $(this).val();
+  		 if(x==""){
+
+		alert('Please input Position');
+		
+	}
+	
+	});
+
+
+	//alert(document.forms["add_position"]["pos"].value);
+}
+
 </script>
 
 <title>Welcome to Admin</title>

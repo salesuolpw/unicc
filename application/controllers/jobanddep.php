@@ -122,10 +122,10 @@ class jobanddep extends MVC_controller{
 	}
 
 	public function addpos(){
-		$data['deps'] = $this->crud->read("select * from departments");
+	$data['deps'] = $this->crud->read("select * from departments");
 	$data['current'] =$c = $this->crud->read('select id,dep_name from departments where id=:id',array('id'=>$id[0]));
 	$data['jobs'] =$j = $this->crud->read('select * from jobs where dep_id=:id',array('id'=>$id[0]));
-		$this->load->render('admin/add_position');
+	$this->load->render('admin/add_position',$data);
 	}
 			
 	
