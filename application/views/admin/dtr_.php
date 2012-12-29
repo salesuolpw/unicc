@@ -67,13 +67,14 @@
 		</tbody>
 		</table>
 	
+	</div>
 		<?php
 		if(!empty($dtr)){
 			?>
-			<div class="action-con">
-			<form action="<?=base_url()."dailytimerecord/summary";?>" method="POST" style="margin-bottom:30px">
+			<div class="action-con" style="margin:10px 0 10px 0">
+			<form action="<?=base_url()."dailytimerecord/summary";?>" method="POST">
 			<input type="hidden" value="<?=$fora;?>" name="dte" />
-			<input type="submit" value="Summary" name="smry" class="g-button green" />
+			<input type="submit" value="View summary" name="smry" class="g-button green" />
 			</form>
 		</div>
 					
@@ -84,5 +85,4 @@
 					
 				
 							
-	</div>
 </div>

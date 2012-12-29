@@ -69,7 +69,9 @@ class compute extends MVC_model{
 					$end = strtotime($key['date']." "."16:00:00");
 					$dif = $end - $start;
 					$hr = round($dif/$sphr,0);
+					echo $hr."<br />";
 					$hour = $hour + $hr;
+
 			
 			
 		}

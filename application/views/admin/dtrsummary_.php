@@ -20,7 +20,7 @@
 	
 	<div class="action-con" style="margin:10px 0 10px 0">
 			<form action="<?=base_url()."dailytimerecord/summary";?>" method="POST" >
-			<input type="hidden" value="<?=$fora;?>" name="dte" />
-			<input type="submit" value="Submit" name="submit" class="g-button green" />
+			<input type="hidden" value="<?=$fora;?>" name="sdte" />
+			<input type="submit" value="Submit" name="submitpayroll" class="g-button green" />
 			</form>
 			</div>

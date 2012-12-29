@@ -1,6 +1,10 @@
 <?php
 class dailytimerecord extends MVC_controller{
 	private $s = false;
+	private $res = array();
+	private $fr;
+	private $to;
+	private $c_off;
 	public function __construct(){
 		parent::__construct();
 		if(islogin()==true){if(isadmin()!=true){redirect('users');}}else{redirect('main');}
@@ -25,7 +29,7 @@ class dailytimerecord extends MVC_controller{
 		$query = "from search";
 		$query = 'SELECT e.id, e.lastname,e.firstname,e.mid_name,d.in,d.out,d.date FROM dtr as d, employees as e WHERE e.id=d.emp_id AND date BETWEEN "'.$from.'" AND "'.$to.'" ORDER BY date';
 		$data['title'] = $from." to ".$to;
-		$fora = $from."/".$to;
+		$this->c_off = $from."/".$to;
 		$data['i'] = $coff;
 		}
 		
@@ -49,7 +53,7 @@ class dailytimerecord extends MVC_controller{
 			
 		}
 		
-		$data['fora'] = $fora;
+		$data['fora'] =$this->c_off;
 		$q = 'current';
 		$q = 'SELECT e.id, e.lastname,e.firstname,e.mid_name,d.in,d.out,d.date FROM dtr as d, employees as e WHERE e.id=d.emp_id AND date BETWEEN '.$s.' ORDER BY date';
 		
@@ -66,35 +70,46 @@ class dailytimerecord extends MVC_controller{
 	
 		if(isset($_POST['smry'])){
 
-		$d = r_string($_POST['dte']);
-		$dte = explode('/',$d);
-		$from  = r_string($dte[0]);
-		$to  = r_string($dte[1]);
+		$data['fora'] = $d = r_string($_POST['dte']);
+		$this->sumIt($d);
+		//print_r($e);
+		$data['emp'] = $this->e;
+		$data['d'] = $this->from." to ".$this->to;
+		$this->load->render('common/adminheader_',$data);
+		$this->load->render('admin/dtrsummary_',$data);
+		$this->load->render('common/footer_');
+		}
+
+
+		if(isset($_POST['submitpayroll'])){
+			//echo $_POST['sdte'];
+				$this->sumIt($_POST['sdte']);
+
+				print_r($this->e);
+		}
+	}
+
+	private function sumIt($date){
+		$dte = explode('/',$date);
+		$this->from  = r_string($dte[0]);
+		$this->to  = r_string($dte[1]);
 		$query = 'SELECT DISTINCT e.id,e.firstname,e.lastname FROM employees as e, dtr as d WHERE e.id=d.emp_id';
 		$ep = $this->crud->read($query);
 		//get total lates later..code here
 		$emps = array();
-		$e = array();
 		$ctr = 0;
 		foreach($ep as $key){
 			 
-		$a = $this->compute->lates($key['id'],$from,$to);
-		$b = $this->compute->get_total_hours($key['id'],$from,$to);
-			$e[$key['id']] = array();
+		$a = $this->compute->lates($key['id'],$this->from,$this->to);
+		$b = $this->compute->get_total_hours($key['id'],$this->from,$this->to);
+			$this->e[$key['id']] = array();
 			$add = array(
 						'id'=>$key['id'],
 						'lates'=>$a['hours'].":".$a['minutes'],
 						'totalhours'=>$b,
 						'fname'=>$key['firstname']." ".$key['lastname']
 						);
-			array_push($e[$key['id']],$add);
-		}
-		//print_r($e);
-		$data['emp'] = $e;
-		$data['d'] = $from." to ".$to;
-		$this->load->render('common/adminheader_',$data);
-		$this->load->render('admin/dtrsummary_',$data);
-		$this->load->render('common/footer_');
+			array_push($this->e[$key['id']],$add);
 		}
 	}
 	
