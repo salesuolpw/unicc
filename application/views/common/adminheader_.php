@@ -61,6 +61,14 @@ $(document).ready(function(){
 				$('#addf').append(tr);
 			});
 		
+
+		//add pos
+
+		$('#idaddpos').submit(function(){
+			alert(1);
+			return false;
+		});
+
 });
 //function select job and salary
  function slectjob(id,sal,slct){
@@ -139,20 +147,26 @@ function thisdep(dep,id){
 }
 
 function validate(){
-	var dep = $('#dep_n').val();
-
-	$('.positionko').each(function(){
-  		 var x = $(this).val();
-  		 if(x==""){
-
-		alert('Please input Position');
-		
+	var department =$('#dep_n').val();
+	if(department==""){
+	$('.addposerror').html('Please select Department');
+		$('.addposerror').css({'color':'white','background':'red','border-radius':'5px','border':'1px solid red','padding':'3px 5px'});
+	return false;
 	}
+	var res = true;
+	 $('[id^="pst"]').each(function(){
+	 		if($(this).val().length <=0){
+	 			res =  false;
+	 		}
+
+	 });
+
+	 if(res==false){
+		$('.addposerror').html('Please input Position.');
+		$('.addposerror').css({'color':'white','background':'red','border-radius':'5px','border':'1px solid red','padding':'3px 5px'});
 	
-	});
-
-
-	//alert(document.forms["add_position"]["pos"].value);
+	 		return false;
+	 }
 }
 
 </script>

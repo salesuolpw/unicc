@@ -11,6 +11,7 @@
 					<h1 class="title2">Departments and Positions</h1>
 					<div class="thebox">
 				<?=(isset($errordel)) ? $errordel : null;?>
+				<?=(isset($addpstsuccess)) ? $addpstsuccess : null;?>
 					<h1 class="ttle">Departments</h1>
 			<div class="left" style="width:100" id="depdiv">
 				<div class="datagrid">

@@ -50,6 +50,19 @@ class jobanddep extends MVC_controller{
 				$data['rs'] = "<div class='success'>Department and Position(s) was successfully add. <a href='".base_url()."jobanddep' >Reload page</a></div>";
 			}
 	}
+
+	if(isset($_POST['addposition'])){
+		$dep_id = $_POST['dep_id'];
+		$pos = $_POST['pos'];
+
+		foreach ($pos as $key) {
+			# code...
+			$b = $this->db->prepare('INSERT INTO jobs(dep_id,job_name) VALUES(:id,:job)');
+			$a = $b->execute(array('id'=>$dep_id,'job'=>$key));
+		}
+		$data['addpstsuccess'] = "<div class='success'>Position has been successfully added.</div>";
+
+	}
 		
 		$this->load->render('common/adminheader_',$data);
 		$this->load->render('admin/jad_',$data);

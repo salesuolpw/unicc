@@ -10,4 +10,4 @@
 h1.title{font:28px/.5em "Segan"!important;color:#fff}
 
 .error{box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);padding:9px 5px;border:1px solid red;border-radius:3px;background:#ff0000;color:#fff!important}
-.success{border:1px solid green;background:rgb(99,155,56);color:green;padding:9px 5px;border-radius:3px;}
+.success{color:white;border:1px solid green;background:rgb(99,155,56);padding:9px 5px;border-radius:3px;}

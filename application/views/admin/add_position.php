@@ -1,7 +1,6 @@
 <h1 class="ttle brd">Add Positions</h1>
-					<?=(isset($rs)) ? $rs : null;?>
-					<?=(isset($error)) ? $error : null;?>
-			
+			<p class="addposerror"></p>
+			<br />
 
 <div class="g-button-group tdepcon" id="dep-c" >
 									  <a class="g-button dropdown-toggle blue department"  data-toggle="dropdown" href="#">
@@ -22,14 +21,16 @@
 								
 									</div>
 			
+			<form onSubmit="return validate();" action="<?=base_url().'jobanddep/';?>" id="idaddpos" method="POST">
 			
-			<input type="hidden" id="dep_n" value="" class="inp-search">
+			<input type="hidden" id="dep_n" value="" name="dep_id" class="inp-search">
 		
 			<p>Position<br />
-			<input type="text" value="" name="pos[]" class="inp-search positionko"> <a href="#" onClick="addmore()">[+]Add more</a>
+			<input type="text" value="" id="pst" name="pos[]" class="inp-search positionko"> <a href="#" onClick="addmore()">[+]Add more</a>
 			</p>
 			<span id="addmorespan">
 			</span>
-			<p><input type="button" onClick="validate()" name="adddep" value="Save" class="g-button blue small"/></p>
+			<p><input type="submit" name="addposition" value="Save" class="g-button blue small"/></p>
+			</form>
 			
 		
