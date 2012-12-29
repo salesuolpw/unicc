@@ -71,7 +71,7 @@
 		if(!empty($dtr)){
 			?>
 			<div class="action-con">
-			<form action="<?=base_url()."dtr/summary";?>" method="POST" style="margin-bottom:30px">
+			<form action="<?=base_url()."dailytimerecord/summary";?>" method="POST" style="margin-bottom:30px">
 			<input type="hidden" value="<?=$fora;?>" name="dte" />
 			<input type="submit" value="Summary" name="smry" class="g-button green" />
 			</form>
