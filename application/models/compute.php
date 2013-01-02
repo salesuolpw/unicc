@@ -30,52 +30,51 @@ class compute extends MVC_model{
 	}
 	
 	//get total lates by hour and minutes
-	public function lates($id,$fr,$to){
+public function total_hours($id,$fr,$to){
 	$a = $this->crud->read('SELECT * FROM dtr WHERE emp_id=:id AND date BETWEEN :fr AND :t',array('id'=>$id,'fr'=>$fr,'t'=>$to));
-		$sphr = 60 * 60;
-		$lates = array();
-		$d = array();
 		foreach($a as $key){
-			$dtime = str_rem(':','07:15:00');
-			$utime = str_rem(':','16:00:00');
-			if(str_rem(':',$key['in']) >$dtime){
-					//get total minutes
-					$a = getmins($key['in']);
-					$mins = $mins + $a;
-					$lates['minutes'] = $mins;
-					
-					$start = strtotime($key['date']." 07:15:00");
-					$end = strtotime($key['date']." ".$key['in']);
-					$dif = $end - $start;
-					//hours
-					$hr = round($dif/$sphr,0);
-					$hour = $hour + $hr;
-					$lates['hours'] = $hour;
-				
-			}
-			
-			
+
+		$mins = get_hm($key['in'],$key['date']);
+
+		//get total difference by minutes
+		$total_mins = getDiff("".$key['date']." ",$key['date']." ".$key['out']);
+		
+		//get minutes late
+		$get_mins = explode(':',$mins);
+		$hr = $get_mins[0];
+		$final = HrtoMins($total_mins - $get_mins[1]);
+		$break_time = explode(':', $final);
+		//total hours and minutes per day...
+		$per_day = ($break_time[0] <=5) ? ($break_time[0]-$hr).":".$break_time[1] : ($break_time[0] - 1) - $hr .":".$break_time[1];
+		$x = explode(':', $per_day);
+		$hour = $hour + $x[0];
+		$s = ($hour * 60);
+		$min = $min + $x[1];
+	
 		}
-		return $lates;
+		//return over all count of hours and minutes
+		$total = HrtoMins($min + $s);
+		return $total;
 	}
+
+
+
+
 	//get total hours for paticular cutoff
 	public function get_total_hours($id,$fr,$to){
 	$a = $this->crud->read('SELECT * FROM dtr WHERE emp_id=:id AND date BETWEEN :fr AND :t',array('id'=>$id,'fr'=>$fr,'t'=>$to));
 		$sphr = 60 * 60;
 		foreach($a as $key){
 			$dtime = str_rem(':','07:16:00');
-			//hours
-			$start = strtotime($key['date']." ".$key['in']);
-					$end = strtotime($key['date']." "."16:00:00");
-					$dif = $end - $start;
-					$hr = round($dif/$sphr,0);
-					echo $hr."<br />";
-					$hour = $hour + $hr;
-
-			
-			
+			$get_late = str_rem(':',$key['in']);
+			$lates = ($get_late > $dtime) ? get_hm($key['in'],$key['date']) : $key['in'];
+			$x = explode(':', $lates);
+			$hours = $hours + $x[0];
+			$mins = $mins + $x[1];
 		}
-		return $hour;
+		
+		$result = HrtoMins(($hours * 60) + $mins);
+		return $result;
 	}
 	//get pay per day  basic * 12 / 365 = per day
 	public function payperday($id){
@@ -100,3 +99,65 @@ class compute extends MVC_model{
 
 	
 }
+
+/*
+
+	//$per_day = explode(':',HrtoMins($per_day));
+
+
+
+		//	$e2na = ($break_time[0] <=5) ? ($break_time[0]-$hr).":".$break_time[1] : ($break_time[0] - 1) - $hr .":".$break_time[1];
+		
+			//$total_per_day = ($per_day[0] <= 5) ? ($per_day[0] -1).":".$per_day[1] : ($per_day[0]-1)-$late_hour.":".$per_day[1];
+			//$final  = $final + $total_per_day;
+
+			//$total_mins = $total_mins + getDiff("".$key['date']." ",$key['date']." ".$key['out']);
+			
+			//$over_all = HrtoMins($total_mins);
+			//get difference
+			//$diff = $to_time - $start_time;
+			//Get difference hours
+			//$hours =  round($diff/(60*60), 0, PHP_ROUND_HALF_DOWN);
+			//$hours  = ($hours > 4) ? $hours - 1  : $hours; 
+			//Get difference minutes
+		//	$mins = round(abs($to_time - $start_time)/60,2);
+			//minutes to
+			//$algo = ($hours*60);
+			//$minutes = round($diff % (60*60) / 60,0);
+			//$s  = HrtoMins($algo - $minutes);
+			//$ex  = explode(':',$s);
+			//$hr = $hr + $ex[0];
+			//$min = $min + $ex[1];
+
+			//echo $hours." ".$key['date']." - ".$key['in']." - ".$key['date']." - ".$key['out']." - >>>>".$s."<br />";
+
+			//$minlates = (str_rem(':',$key['in']) >$dtime) ? getmins($key['in']) : '>' ; 
+			//$hrlates = (str_rem(':',$key['in']) >$dtime) ? gethour($key['in']) : gethour($key['in']); 
+		
+
+
+
+			//$utime = str_rem(':','16:00:00');
+			//if(str_rem(':',$key['in']) >$dtime){
+					//get total minutes
+					//$a = getmins($key['in']);
+					//$mins = $mins + $a;
+					//$lates['minutes'] = $mins;
+					//echo $key['date'].'<br />';
+					//!important: calculate total hours everyday
+				//	$start = strtotime($key['date']." 07:00:00");
+					//$end = strtotime($key['date']." ".$key['out']);
+				//	$dif = $end - $start;
+					//!important:total hour day minus one hour for breaktime
+					//$hr = round($dif/$sphr,0) - 1;
+					//hours to mins minus mins
+					//$min = ($hr*60) - ($minlates);
+
+
+					//echo $min."<br />";
+					//$hour = $hour + $hr;
+					//$lates['hours'] = $hour;
+				
+			//}
+			
+*/

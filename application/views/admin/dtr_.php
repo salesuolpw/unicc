@@ -50,7 +50,7 @@
 		<div class="datagrid">
 		<table width="100%" class="cstm-t toboxshadow dt" cellspacing="0" style="margin-bottom:20px">
 		<thead>
-			<tr><th>EId</th><th>Employee Name</th> <th>Time-in</th><th>Lates</th><th>Time-out</th><th>Undertime</th><th>Date</th></tr>
+			<tr><th>EId</th><th>Employee Name</th> <th>Time-in</th><th>Lates</th><th>Time-out</th><th>Total hours</th><th>Date</th></tr>
 		</thead>
 		<tbody>
 		<?php
@@ -59,7 +59,19 @@
 		foreach($dtr as $key){
 		//short and simple logic odd and even
 		$oddoreven = (($ctr++)%2) ? "even" : "odd";
-		echo "<tr  class=".$oddoreven."><td>".$key['id']."</td><td>".$key['lastname'].",".$key['firstname']." ".$key['mid_name']."</td><td>".$key['in']."</td><td>".get_hm($key['in'],$key['date'])."</td><td>".$key['out']."</td><td>".udr_time($key['out'],$key['date'])."</td><td>".$key['date']."</td></tr>";
+
+		$mins = get_hm($key['in'],$key['date']);
+		//get total difference by minutes
+		$total_mins = getDiff("".$key['date']." ",$key['date']." ".$key['out']);
+		//get minutes late
+		$get_mins = explode(':',$mins);
+		$hr = $get_mins[0];
+		$final = HrtoMins($total_mins - $get_mins[1]);
+		$break_time = explode(':', $final);
+		$e2na = ($break_time[0] <=5) ? ($break_time[0]-$hr).":".$break_time[1] : ($break_time[0] - 1) - $hr .":".$break_time[1];
+		//deduct lates
+		//getDiff("".$key['date']." ",$key['date']." ".$key['out'])
+		echo "<tr  class=".$oddoreven."><td>".$key['id']."</td><td>".$key['lastname'].",".$key['firstname']." ".$key['mid_name']."</td><td>".$key['in']."</td><td>".$mins."</td><td>".$key['out']."</td><td>".$e2na."</td><td>".$key['date']."</td></tr>";
 	
 		}
 		
@@ -69,15 +81,30 @@
 	
 	</div>
 		<?php
-		if(!empty($dtr)){
+		if($dtr[0]['p_status']==0){
 			?>
 			<div class="action-con" style="margin:10px 0 10px 0">
-			<form action="<?=base_url()."dailytimerecord/summary";?>" method="POST">
-			<input type="hidden" value="<?=$fora;?>" name="dte" />
-			<input type="submit" value="View summary" name="smry" class="g-button green" />
-			</form>
-		</div>
+			<?php
+				if(empty($dtr)){
+				echo "<p class='g-button red'>No result</p>";
+				}else{
+					?>
+					<form action="<?=base_url()."dailytimerecord/summary";?>" method="POST">
+						<input type="hidden" value="<?=$fora;?>" name="dte" />
+						<input type="submit"  value="View summary" name="smry" class="g-button green" />
+						</form>
+					<?php
+				}
+
+			?>
+			</div>
 					
+			<?php
+		}else{
+			?>
+			<div class="action-con" style="margin:10px 0 10px 0">
+				<p class='g-button red'>Cut off was already submited</p>
+			</div>
 			<?php
 		}
 		?>

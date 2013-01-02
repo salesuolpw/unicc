@@ -82,3 +82,57 @@ function selected($i,$e){
 	return ($i==$e) ? "selected=selected" : null;
 }
 
+//!important format "year-month-day hr:min:sec"
+function getDiff($date,$to){
+	$to_time = strtotime($to);
+	$from_time = strtotime($date." 7:00:00");
+	$diff = $to_time - $from_time;
+	//hours
+	//$hours =  round($diff/(60*60), 0, PHP_ROUND_HALF_DOWN);
+	//minutes
+	$mins = round(abs($to_time - $from_time)/60,0, PHP_ROUND_HALF_DOWN);
+	return $mins;
+}
+
+function HrtoMins($Minutes){
+    $Min = ($Minutes < 0) ? abs($Minutes) : $Minutes;
+    $iHours = Floor($Min / 60);
+    $Minutes = ($Min - ($iHours * 60)) / 100;
+    $tHours = $iHours + $Minutes;
+    if ($Minutes < 0)
+    {
+        $tHours = $tHours * (-1);
+    }
+    $aHours = explode(".", $tHours);
+    $iHours = $aHours[0];
+    if (empty($aHours[1]))
+    {
+        $aHours[1] = "00";
+    }
+    $Minutes = $aHours[1];
+    if (strlen($Minutes) < 2)
+    {
+        $Minutes = $Minutes ."0";
+    }
+    $tHours = $iHours .":". $Minutes;
+    return $tHours;
+}
+
+function getRate($basic,$return){
+	$perday = ($basic * 12) / 365;
+	$perhour = $perday / 8;
+	$permin = $perhour / 60;
+
+	switch ($return) {
+		case 'perday': return round($perday,2);
+			# code...
+			break;
+		case 'perhour': return round($perhour,2);
+			# code...
+			break;
+		default:
+			# code...
+			return round($permin,2);
+			break;
+	}
+}
