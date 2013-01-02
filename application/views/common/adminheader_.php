@@ -216,6 +216,7 @@ function validate(){
 		<li><a href="<?=base_url()."compensation/";?>">Compensation</a></li>
 		<li><a href="<?=base_url()."dailytimerecord/";?>">DTR</a></li>
 		<li><a href="<?=base_url()."jobanddep/";?>">Departments and Positions</a></li>
+		<li><a href="<?=base_url()."reports/";?>">Reports</a></li>
 	</ul>
 	</div>
 </div>

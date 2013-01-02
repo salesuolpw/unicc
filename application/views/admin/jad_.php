@@ -8,7 +8,7 @@
 </div>
 <div class="container" id="admin">
 	<div class="wrapper minh">
-					<h1 class="title2">Departments and Positions</h1>
+					<h1>Departments and Positions</h1>
 					<div class="thebox">
 				<?=(isset($errordel)) ? $errordel : null;?>
 				<?=(isset($addpstsuccess)) ? $addpstsuccess : null;?>
