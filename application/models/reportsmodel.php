@@ -7,6 +7,6 @@ class reportsModel extends MVC_model{
 
 	public function pslip(){
 			$a = $this->crud->read("SELECT * FROM payroll");
-			print_r($a);
+			return $a;
 	}
 }

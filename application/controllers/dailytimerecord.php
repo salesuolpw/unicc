@@ -103,7 +103,7 @@ class dailytimerecord extends MVC_controller{
 					$y = explode(':',$value[0]['total_lates']);
 					$aperhr = $y[0] * $rphr;
 					$apermin = $y[1] * $rpmin;
-					echo $y[1];
+					
 					$total_abs =  round($aperhr + $apermin,2);
 					$total =  round($perhr + $permin,2);
 					$this->e[$id][0]['c_off'] = $d;
@@ -115,9 +115,7 @@ class dailytimerecord extends MVC_controller{
 
 
 		$data['emp'] = $this->e;
-		echo "<pre>";
-		print_r($this->e);
-		echo  "</pre>";
+	
 		$data['d'] = $this->from." to ".$this->to;
 		$this->load->render('common/adminheader_',$data);
 		$this->load->render('admin/dtrsummary_',$data);
@@ -145,7 +143,7 @@ class dailytimerecord extends MVC_controller{
 					$permin = $x[1] * $rpmin;
 
 					//hours and mins by absent
-					$y = $value[0]['total_lates'];
+					$y = explode(':',$value[0]['total_lates']);
 					$aperhr = $y[0] * $rphr;
 					$apermin = $y[1] * $rpmin;
 
