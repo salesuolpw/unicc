@@ -34,12 +34,12 @@ document.getElementById("clock").innerHTML=datestring+" "+timestring;
 
 }
 window.onload=function(){
-setInterval("displaytime()", 1000);
+//setInterval("displaytime()", 1000);
 }
 </script>
 </head>
 <body>
-<h1 id="clock"></h1>
+
 <div class="container" id="header">
 		<div class="wrapper">
 				<img src="<?=base_url()."public/images/universal_logo.jpg";?>" alt="Universal Commercial Corporation Logo" />
