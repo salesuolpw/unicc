@@ -6,7 +6,7 @@ class dtr extends MVC_controller{
 	}
 	
 	public function index(){
-			echo 1;
+		$this->load->render('common/head_');
 	}
 
 	public function summary(){
