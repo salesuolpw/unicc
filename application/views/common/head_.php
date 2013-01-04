@@ -43,6 +43,7 @@ datagrid
 -->
 </style>
 <script type="text/javascript" src="<?=base_url()."public/js/jquery-1.8.1.js"?>"></script>
+<script type="text/javascript" src="<?=base_url()."public/js/jquery.nicescroll.js"?>"></script>
 <script type="text/javascript">
 var currenttime = "<?php echo date("F d, Y H:i:s", time())?>"; //PHP method of getting server date
 
@@ -74,10 +75,16 @@ $(document).ready(function(){
 	$('#dtrloginbtn').click(function(){
 		alert(1);
 	});
+	$('#app').click(function(){
+		var x = "<tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>";
+		$('.datagrid table tbody').append(x);
+	})
+	$('#empislogin').niceScroll();
 });
 </script>
 </head>
 <body>
+	<a href="#" id="app">Append</a>
 <div class="container">
 	<div class="wrapper">
 		<div class="left">
