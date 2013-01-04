@@ -7,7 +7,7 @@
 <!--
 /*Your style here*/
 body{font:12px/1em 'Arial';margin:0;}
-#right-nav{padding:9px;width:250px;min-height: 630px;background:rgb(22,81,142);color:#fff;}
+#right-nav{padding:9px;width:250px;min-height: 610px;background:rgb(22,81,142);color:#fff;}
 #tme{font:bold 62px 'Arial';padding:0;margin: 0}
 #dte{font:bold 22px 'Arial';padding:0;margin: 0;text-align: center}
 #clock{height:100px;background: #fff;box-shadow: 0 0 5px gray;color: #000}
@@ -73,18 +73,17 @@ setInterval("displaytime()", 1000);
 
 $(document).ready(function(){
 	$('#dtrloginbtn').click(function(){
-		alert(1);
+		$.post('<?=base_url()."dtr/login";?>',{loginme:true},function(result){
+
+		});
 	});
-	$('#app').click(function(){
-		var x = "<tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>";
-		$('.datagrid table tbody').append(x);
-	})
+
 	$('#empislogin').niceScroll();
 });
 </script>
 </head>
 <body>
-	<a href="#" id="app">Append</a>
+
 <div class="container">
 	<div class="wrapper">
 		<div class="left">
@@ -92,22 +91,25 @@ $(document).ready(function(){
 		
 		<div id="empislogin">
 			<div class="datagrid">
+
+		
 							<table>
 								<thead><tr><th>Emp ID</th><th>Employee Name</th><th>Department</th><th>Login</th><th>Logout</th></tr></thead>
 
 
 								<tbody>
 								<?php
+								
 								$alt = 0;
 								$emp = array('firstname'=>'red');
-								foreach($emp as $key){
+								foreach($dtr as $key){
 								$oddoreven = (($ctr++)%2) ? "alt" : "odd";
 								$name = $key['firstname']." ".$key['mid_name']." ".$key['lastname'];
 								?>
 								<tr class=<?=$oddoreven;?>><td><?=$key['id'];?></td>
 							<td><?=$name;?></td>
 								
-								<td><?=$key['contact'];?></td><td><?=$key['hiredate'];?></td>
+								<td><?=$key['dep_name'];?></td><td><?=$key['_in'];?></td>
 								<td><a href="<?=base_url()."employees/delete/".$key['id']; ?>" title="Delete" onclick="return confirm('Are you sure you want to delete <?php echo $name; ?>')" class="g-button red mini no-text"><i class="icon-trash icon-white"></i></a></td>
 											
 								</tr>
@@ -126,9 +128,12 @@ $(document).ready(function(){
 			</div>
 			<h1>Welcome</h1>
 			<h3>Daily Time Record Login</h3>
-			<p>Employee Number<br /><input type="text" name="empid" id="empid"  class="inpt"/></p>
+			<form action="<?=base_url()."dtr/login";?>" method="POST">
+				<?=isset($error) ? $error : null;?>
+			<p>Employee username<br /><input type="text" name="empusername" id="empusername"  class="inpt"/></p>
 			<p>Password <br /><input type="password" name="emppass" id="emppass" class="inpt"/></p>
-			<p><a href="#" class="g-button" id="dtrloginbtn">Login</a></p>
+			<p><input type="submit" name="dtrlogin" class="g-button" id="dtrloginbtn" value="Login"/></p>
+			</form>
 		</div>
 
 		<br class="clear" />

@@ -9,41 +9,31 @@ class dtr extends MVC_controller{
 		$this->load->render('common/head_');
 	}
 
-	public function summary(){
-		if($_POST['smry']){
-		$data['info'] = $this->user->who('employees',$this->session->_get('uid'));
-		$d = r_string($_POST['dte']);
-		$dte = explode('/',$d);
-		$from  = r_string($dte[0]);
-		$to  = r_string($dte[1]);
-		$query = 'SELECT DISTINCT e.id,e.firstname,e.lastname FROM employees as e, dtr as d WHERE e.id=d.emp_id';
-		$ep = $this->crud->read($query);
-		//get total lates later..code here
-		$emps = array();
-		$e = array();
-		$ctr = 0;
-		foreach($ep as $key){
-			 
-		$a = $this->compute->lates($key['id'],$from,$to);
-		$b = $this->compute->get_total_hours($key['id'],$from,$to);
-			$e[$key['id']] = array();
-			$add = array(
-						'id'=>$key['id'],
-						'lates'=>$a['hours'].":".$a['minutes'],
-						'totalhours'=>$b,
-						'fname'=>$key['firstname']." ".$key['lastname']
-						);
-			array_push($e[$key['id']],$add);
+	public function login(){
+		if(isset($_POST['dtrlogin'])){
+
+			$uname = r_string($_POST['empusername']);
+			$pass = r_sha(r_string($_POST['emppass']));
+			$result = $this->validate->user($uname,$pass);	
+				$uid = $result['uid'];
+				$username = $result['username'];
+				$usertype = $result['usertype'];
+		
+				if($result == TRUE){
+				$date = date('Y-m-d');
+				$login = date('H:i:s');
+				$q = $this->crud->create('dtr',array('emp_id'=>$uid,'_in'=>$login,'date'=>$date,'p_status'=>0,'isOut'=>0));
+				}else{
+				$data['error'] = 'Invalid Username or Password';
+				}
 		}
-		//print_r($e);
-		$data['emp'] = $e;
-		$data['d'] = $from." to ".$to;
-		$this->load->render('common/adminheader_',$data);
-		$this->load->render('dtrsummary_',$data);
-		$this->load->render('common/footer_');
-		}else{
-			redirect('dtr');
-		}
+		$query = 'SELECT e.id, e.lastname,e.firstname,e.mid_name,d._in,dd.dep_name FROM departments as dd,dtr as d, employees as e WHERE e.dep_id=dd.id AND e.id=d.emp_id AND (d.out=\'00:00:00\' OR isOut=0)';
+
+		$data['dtr']= $this->crud->read($query);
+		//print_r($dtr);
+
+		$this->load->render('common/head_',$data);
+
 	}
 	
 }

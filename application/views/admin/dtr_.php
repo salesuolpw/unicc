@@ -5,6 +5,7 @@
 			View Daily Time Record | Year: 
 			<select name="yr" style="height:30px;text-align:center">
 			<option value="2012">2012</option>
+			<option value="2013">2013</option>
 			</select>
 				Cut Off 
 				<select name="c_off" style="margin-right:9px;height:30px;text-align:center">
@@ -60,7 +61,7 @@
 		//short and simple logic odd and even
 		$oddoreven = (($ctr++)%2) ? "even" : "odd";
 
-		$mins = get_hm($key['in'],$key['date']);
+		$mins = get_hm($key['_in'],$key['date']);
 		//get total difference by minutes
 		$total_mins = getDiff("".$key['date']." ",$key['date']." ".$key['out']);
 		//get minutes late
@@ -71,7 +72,7 @@
 		$e2na = ($break_time[0] <=5) ? ($break_time[0]-$hr).":".$break_time[1] : ($break_time[0] - 1) - $hr .":".$break_time[1];
 		//deduct lates
 		//getDiff("".$key['date']." ",$key['date']." ".$key['out'])
-		echo "<tr  class=".$oddoreven."><td>".$key['id']."</td><td>".$key['lastname'].",".$key['firstname']." ".$key['mid_name']."</td><td>".$key['in']."</td><td>".$mins."</td><td>".$key['out']."</td><td>".$e2na."</td><td>".$key['date']."</td></tr>";
+		echo "<tr  class=".$oddoreven."><td>".$key['id']."</td><td>".$key['lastname'].",".$key['firstname']." ".$key['mid_name']."</td><td>".$key['_in']."</td><td>".$mins."</td><td>".$key['out']."</td><td>".$e2na."</td><td>".$key['date']."</td></tr>";
 	
 		}
 		

@@ -5,11 +5,14 @@ parent::__construct();
 }
 
 public function user($uname,$pass){
+
 		$q = $this->db->prepare('SELECT * FROM users WHERE username = :user AND password = :pass');
 		$q->execute(array(':user'=>$uname,':pass'=>$pass));
 		$res = $q->fetch(PDO::FETCH_ASSOC);
 		return ($q->rowCount() > 0 ) ? $res : false;
 	}
+
+
 
 public function identify_user($uid){
 		$q = $this->db->prepare("select * from users where uid = :uid");
