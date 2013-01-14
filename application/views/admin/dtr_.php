@@ -71,8 +71,13 @@
 		$break_time = explode(':', $final);
 		$e2na = ($break_time[0] <=5) ? ($break_time[0]-$hr).":".$break_time[1] : ($break_time[0] - 1) - $hr .":".$break_time[1];
 		//deduct lates
+<<<<<<< HEAD
 		//getDiff("".$key['date']." ",$key['date']." ".$key['_out'])
 		echo "<tr  class=".$oddoreven."><td>".$key['id']."</td><td>".$key['lastname'].",".$key['firstname']." ".$key['mid_name']."</td><td>".$key['_in']."</td><td>".$mins."</td><td>".$key['_out']."</td><td>".$e2na."</td><td>".$key['date']."</td></tr>";
+=======
+		//getDiff("".$key['date']." ",$key['date']." ".$key['out'])
+		echo "<tr  class=".$oddoreven."><td>".$key['id']."</td><td>".$key['lastname'].",".$key['firstname']." ".$key['mid_name']."</td><td>".$key['_in']."</td><td>".$mins."</td><td>".$key['out']."</td><td>".$e2na."</td><td>".$key['date']."</td></tr>";
+>>>>>>> 2c62318aae896fe9544be3ad1d495df6d67128fc
 	
 		}
 		

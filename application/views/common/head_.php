@@ -44,8 +44,11 @@ datagrid
 </style>
 <script type="text/javascript" src="<?=base_url()."public/js/jquery-1.8.1.js"?>"></script>
 <script type="text/javascript" src="<?=base_url()."public/js/jquery.nicescroll.js"?>"></script>
+<<<<<<< HEAD
 <script type="text/javascript" src="<?=base_url()."public/js/jquery.reveal.js"?>"></script>
 <link href="<?=base_url()."public/css/reveal.css";?>" type="text/css" rel="stylesheet" media="all">
+=======
+>>>>>>> 2c62318aae896fe9544be3ad1d495df6d67128fc
 <script type="text/javascript">
 var currenttime = "<?php echo date("F d, Y H:i:s", time())?>"; //PHP method of getting server date
 
@@ -79,6 +82,7 @@ $(document).ready(function(){
 
 		});
 	});
+<<<<<<< HEAD
 		$('#empislogin').niceScroll();
 
 	$('#logout_confirm').click(function(e){
@@ -117,6 +121,14 @@ $(document).ready(function(){
 		<a class="close-reveal-modal mstyle">&#215;</a>
 </div>
 
+=======
+
+	$('#empislogin').niceScroll();
+});
+</script>
+</head>
+<body>
+>>>>>>> 2c62318aae896fe9544be3ad1d495df6d67128fc
 
 <div class="container">
 	<div class="wrapper">
@@ -135,6 +147,10 @@ $(document).ready(function(){
 								<?php
 								
 								$alt = 0;
+<<<<<<< HEAD
+=======
+								$emp = array('firstname'=>'red');
+>>>>>>> 2c62318aae896fe9544be3ad1d495df6d67128fc
 								foreach($dtr as $key){
 								$oddoreven = (($ctr++)%2) ? "alt" : "odd";
 								$name = $key['firstname']." ".$key['mid_name']." ".$key['lastname'];
@@ -143,7 +159,11 @@ $(document).ready(function(){
 							<td><?=$name;?></td>
 								
 								<td><?=$key['dep_name'];?></td><td><?=$key['_in'];?></td>
+<<<<<<< HEAD
 								<td><a href="#" data-reveal-id="myModal" id="<?=$key['username']?>"  class="g-button red mini logout">Logout</a></td>
+=======
+								<td><a href="<?=base_url()."employees/delete/".$key['id']; ?>" title="Delete" onclick="return confirm('Are you sure you want to delete <?php echo $name; ?>')" class="g-button red mini no-text"><i class="icon-trash icon-white"></i></a></td>
+>>>>>>> 2c62318aae896fe9544be3ad1d495df6d67128fc
 											
 								</tr>
 								<?}?>

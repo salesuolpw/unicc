@@ -5,6 +5,7 @@ class dtr extends MVC_controller{
 	}
 	
 	public function index(){
+<<<<<<< HEAD
 	$today = date('Y-m-d');
 	$nextday = date('Y-m-d',strtotime('+1 day',strtotime($today)));
 		if(isset($_POST['pass'])){
@@ -31,10 +32,17 @@ class dtr extends MVC_controller{
 
 	public function login(){
 
+=======
+		$this->load->render('common/head_');
+	}
+
+	public function login(){
+>>>>>>> 2c62318aae896fe9544be3ad1d495df6d67128fc
 		if(isset($_POST['dtrlogin'])){
 
 			$uname = r_string($_POST['empusername']);
 			$pass = r_sha(r_string($_POST['emppass']));
+<<<<<<< HEAD
 
 			$validate = $this->validate->user($uname,$pass);
 			$uid = $validate['uid'];
@@ -52,7 +60,28 @@ class dtr extends MVC_controller{
 
 			}else{
 				$data['error'] = "<div class='error'>Account may not exists from database, Please check your username or password</div>";
+=======
+			$result = $this->validate->user($uname,$pass);	
+				$uid = $result['uid'];
+				$username = $result['username'];
+				$usertype = $result['usertype'];
+		
+				if($result == TRUE){
+				$date = date('Y-m-d');
+				$login = date('H:i:s');
+				$q = $this->crud->create('dtr',array('emp_id'=>$uid,'_in'=>$login,'date'=>$date,'p_status'=>0,'isOut'=>0));
+				}else{
+				$data['error'] = 'Invalid Username or Password';
+				}
+>>>>>>> 2c62318aae896fe9544be3ad1d495df6d67128fc
 		}
+		$query = 'SELECT e.id, e.lastname,e.firstname,e.mid_name,d._in,dd.dep_name FROM departments as dd,dtr as d, employees as e WHERE e.dep_id=dd.id AND e.id=d.emp_id AND (d.out=\'00:00:00\' OR isOut=0)';
+
+		$data['dtr']= $this->crud->read($query);
+		//print_r($dtr);
+
+		$this->load->render('common/head_',$data);
+
 	}
 
 	$today = date('Y-m-d');

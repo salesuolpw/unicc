@@ -13,6 +13,7 @@ public function user($uname,$pass){
 	}
 
 
+<<<<<<< HEAD
 public function dtr_validate($uid){
 	//echo $username.$pass;
 	$today = date('Y-m-d');
@@ -24,6 +25,8 @@ public function dtr_validate($uid){
 	return (!empty($query)) ? true : false;
 }
 
+=======
+>>>>>>> 2c62318aae896fe9544be3ad1d495df6d67128fc
 
 public function identify_user($uid){
 		$q = $this->db->prepare("select * from users where uid = :uid");

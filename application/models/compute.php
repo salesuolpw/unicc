@@ -129,7 +129,11 @@ public function total_hours($id,$fr,$to){
 			//$hr = $hr + $ex[0];
 			//$min = $min + $ex[1];
 
+<<<<<<< HEAD
 			//echo $hours." ".$key['date']." - ".$key['_in']." - ".$key['date']." - ".$key['_out']." - >>>>".$s."<br />";
+=======
+			//echo $hours." ".$key['date']." - ".$key['_in']." - ".$key['date']." - ".$key['out']." - >>>>".$s."<br />";
+>>>>>>> 2c62318aae896fe9544be3ad1d495df6d67128fc
 
 			//$minlates = (str_rem(':',$key['_in']) >$dtime) ? getmins($key['_in']) : '>' ; 
 			//$hrlates = (str_rem(':',$key['_in']) >$dtime) ? gethour($key['_in']) : gethour($key['_in']); 

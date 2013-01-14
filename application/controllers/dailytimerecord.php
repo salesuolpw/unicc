@@ -30,7 +30,11 @@ class dailytimerecord extends MVC_controller{
 		$year = ($start_month==12 && $start_date==24) ? $year + 1 : $year;
 		$to = r_string($year."-".$end_month."-".$end_date);
 		$query = "from search";
+<<<<<<< HEAD
 		$query = 'SELECT e.id, e.lastname,e.firstname,e.mid_name,d.p_status,d._in,d._out,d.date FROM dtr as d, employees as e WHERE (d._out!=\'00:00:00\' OR isOut=1) AND e.id=d.emp_id AND  date BETWEEN "'.$from.'" AND "'.$to.'" ORDER BY date';
+=======
+		$query = 'SELECT e.id, e.lastname,e.firstname,e.mid_name,d.p_status,d._in,d.out,d.date FROM dtr as d, employees as e WHERE (d.out!=\'00:00:00\' OR isOut=1) AND e.id=d.emp_id AND  date BETWEEN "'.$from.'" AND "'.$to.'" ORDER BY date';
+>>>>>>> 2c62318aae896fe9544be3ad1d495df6d67128fc
 		$data['title'] = $from." to ".$to;
 		$this->c_off = $from."/".$to;
 		$data['i'] = $coff;
@@ -58,7 +62,11 @@ class dailytimerecord extends MVC_controller{
 		
 		$data['fora'] =$this->c_off;
 		$q = 'current';
+<<<<<<< HEAD
 		$q = 'SELECT e.id, e.lastname,e.firstname,e.mid_name,d.p_status,d._in,d._out,d.date FROM dtr as d, employees as e WHERE (d._out!=\'00:00:00\' OR isOut=1) AND e.id=d.emp_id AND date BETWEEN '.$s.' ORDER BY date';
+=======
+		$q = 'SELECT e.id, e.lastname,e.firstname,e.mid_name,d.p_status,d._in,d.out,d.date FROM dtr as d, employees as e WHERE (d.out!=\'00:00:00\' OR isOut=1) AND e.id=d.emp_id AND date BETWEEN '.$s.' ORDER BY date';
+>>>>>>> 2c62318aae896fe9544be3ad1d495df6d67128fc
 		
 		$query = (empty($query)) ? $q:$query;
 		$data['dtr'] = $this->crud->read($query);
