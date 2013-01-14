@@ -130,9 +130,12 @@ function getRate($basic,$return){
 		case 'perhour': return round($perhour,2);
 			# code...
 			break;
+		case 'permin':return round($permin,2);
+			# code...
+			break;
 		default:
 			# code...
-			return round($permin,2);
+			return "oops";
 			break;
 	}
 }

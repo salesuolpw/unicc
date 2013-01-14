@@ -14,20 +14,23 @@ class dailytimerecord extends MVC_controller{
 	$data['info'] = $this->user->who('employees',$this->session->_get('uid'));
 		if(isset($_POST['s-dtr'])){
 		//$month = array(1=>'Jan',2=>'Feb',3=>'Mar',4=>'Apr',5=>'May',6=>'Jun',7=>'Jul',8=>'Aug',9=>'Sep',10=>'Oct',11=>'Nov',12=>'Dec');
-		$s = array(7,23);
-		$e = array(24,8);
-		$year = $_POST['yr'];
-		$coff = $_POST['c_off'];
+		$s = array('07',23);
+		$e = array(24,'08');
+		 $year = $_POST['yr'];
+		 $coff = $_POST['c_off'];
 		$c = explode('-',$coff);
-	
+		
 		$start_date = $e[$c[1]];
 		$start_month = $c[0];
-		$end_month = ($e[$c[1]]==24)?$c[0] + 1 : $c[0];
+		$end_month = ($e[$c[1]]==24)? $c[0] + 1 : $c[0];
+		$end_month =  ($end_month==13) ? '01' : $end_month;
+
 		$end_date = $s[$c[1]];
 		$from = r_string($year."-".$start_month."-".$start_date);
+		$year = ($start_month==12 && $start_date==24) ? $year + 1 : $year;
 		$to = r_string($year."-".$end_month."-".$end_date);
 		$query = "from search";
-		$query = 'SELECT e.id, e.lastname,e.firstname,e.mid_name,d.p_status,d.in,d.out,d.date FROM dtr as d, employees as e WHERE e.id=d.emp_id AND date BETWEEN "'.$from.'" AND "'.$to.'" ORDER BY date';
+		$query = 'SELECT e.id, e.lastname,e.firstname,e.mid_name,d.p_status,d._in,d._out,d.date FROM dtr as d, employees as e WHERE (d._out!=\'00:00:00\' OR isOut=1) AND e.id=d.emp_id AND  date BETWEEN "'.$from.'" AND "'.$to.'" ORDER BY date';
 		$data['title'] = $from." to ".$to;
 		$this->c_off = $from."/".$to;
 		$data['i'] = $coff;
@@ -55,7 +58,7 @@ class dailytimerecord extends MVC_controller{
 		
 		$data['fora'] =$this->c_off;
 		$q = 'current';
-		$q = 'SELECT e.id, e.lastname,e.firstname,e.mid_name,d.p_status,d.in,d.out,d.date FROM dtr as d, employees as e WHERE e.id=d.emp_id AND date BETWEEN '.$s.' ORDER BY date';
+		$q = 'SELECT e.id, e.lastname,e.firstname,e.mid_name,d.p_status,d._in,d._out,d.date FROM dtr as d, employees as e WHERE (d._out!=\'00:00:00\' OR isOut=1) AND e.id=d.emp_id AND date BETWEEN '.$s.' ORDER BY date';
 		
 		$query = (empty($query)) ? $q:$query;
 		$data['dtr'] = $this->crud->read($query);
@@ -83,7 +86,7 @@ class dailytimerecord extends MVC_controller{
 	
 		if(isset($_POST['smry'])){
 
-		$data['fora'] = $d = r_string($_POST['dte']);
+		 $data['fora'] = $d = r_string($_POST['dte']);
 		$this->sumIt($d);
 			foreach ($this->e as $key => $value) {
 					$id =  $value[0]['id'];
@@ -100,10 +103,10 @@ class dailytimerecord extends MVC_controller{
 					$permin = $x[1] * $rpmin;
 
 					//hours and mins by absent
-					$y = $value[0]['total_lates'];
+					$y = explode(':',$value[0]['total_lates']);
 					$aperhr = $y[0] * $rphr;
 					$apermin = $y[1] * $rpmin;
-
+					
 					$total_abs =  round($aperhr + $apermin,2);
 					$total =  round($perhr + $permin,2);
 					$this->e[$id][0]['c_off'] = $d;
@@ -113,7 +116,9 @@ class dailytimerecord extends MVC_controller{
 
 				}
 
+
 		$data['emp'] = $this->e;
+	
 		$data['d'] = $this->from." to ".$this->to;
 		$this->load->render('common/adminheader_',$data);
 		$this->load->render('admin/dtrsummary_',$data);
@@ -122,7 +127,7 @@ class dailytimerecord extends MVC_controller{
 
 
 		if(isset($_POST['submitpayroll'])){
-			$d =  $_POST['sdte'];
+		$d =  $_POST['sdte'];
 
 			$this->sumIt($_POST['sdte']);
 			foreach ($this->e as $key => $value) {
@@ -141,7 +146,7 @@ class dailytimerecord extends MVC_controller{
 					$permin = $x[1] * $rpmin;
 
 					//hours and mins by absent
-					$y = $value[0]['total_lates'];
+					$y = explode(':',$value[0]['total_lates']);
 					$aperhr = $y[0] * $rphr;
 					$apermin = $y[1] * $rpmin;
 

@@ -5,11 +5,25 @@ parent::__construct();
 }
 
 public function user($uname,$pass){
+
 		$q = $this->db->prepare('SELECT * FROM users WHERE username = :user AND password = :pass');
 		$q->execute(array(':user'=>$uname,':pass'=>$pass));
 		$res = $q->fetch(PDO::FETCH_ASSOC);
 		return ($q->rowCount() > 0 ) ? $res : false;
 	}
+
+
+public function dtr_validate($uid){
+	//echo $username.$pass;
+	$today = date('Y-m-d');
+	$nextday = date('Y-m-d',strtotime('+1 day',strtotime($today)));
+
+	//$q = $this->crud->read('SELECT uid FROM users  WHERE username=:user AND password=:pass',array(':user'=>$username,':pass'=>$pass),'true');
+	
+	$query = $this->crud->read('SELECT * FROM dtr WHERE emp_id=:uid AND date BETWEEN :today AND :nextday AND isOut=0',array(':uid'=>$uid,':today'=>$today,'nextday'=>$nextday),'true');
+	return (!empty($query)) ? true : false;
+}
+
 
 public function identify_user($uid){
 		$q = $this->db->prepare("select * from users where uid = :uid");

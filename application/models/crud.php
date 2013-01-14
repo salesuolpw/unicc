@@ -10,11 +10,10 @@ class crud extends MVC_model{
 	return $query->execute($vals);
 	}
 	
-	public function read($query,$vals = array()){
+	public function read($query,$vals = array(),$assoc =false){
 		$query = $this->db->prepare($query);
-		
 		$query->execute($vals);
-		return $query->fetchAll();
+		return ($assoc==true) ? $query->fetch(PDO::FETCH_ASSOC) : $query->fetchAll();
 	}
 	public function update($tbl,$flds= array(),$con = array()){
 		$query = $this->db->prepare('UPDATE '.$tbl.' SET '.implode('=?',array_keys($flds)).'=? WHERE '.implode('=?',array_keys($con)).'=?');

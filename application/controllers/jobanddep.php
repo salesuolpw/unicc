@@ -7,8 +7,7 @@ class jobanddep extends MVC_controller{
 	
 	public function index(){
 	$data['info'] = $this->user->who('employees',$this->session->_get('uid'));
-	$data['deps'] = $this->crud->read("select * from departments");
-	
+	$data['deps'] =$dpr = $this->crud->read("select * from departments");
 	if(isset($_POST['modPos'])){
 		$dep = $_POST['new_pos'];
 				$id = $_POST['id'];

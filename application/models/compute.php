@@ -34,10 +34,10 @@ public function total_hours($id,$fr,$to){
 	$a = $this->crud->read('SELECT * FROM dtr WHERE emp_id=:id AND date BETWEEN :fr AND :t',array('id'=>$id,'fr'=>$fr,'t'=>$to));
 		foreach($a as $key){
 
-		$mins = get_hm($key['in'],$key['date']);
+		$mins = get_hm($key['_in'],$key['date']);
 
 		//get total difference by minutes
-		$total_mins = getDiff("".$key['date']." ",$key['date']." ".$key['out']);
+		$total_mins = getDiff("".$key['date']." ",$key['date']." ".$key['_out']);
 		
 		//get minutes late
 		$get_mins = explode(':',$mins);
@@ -66,8 +66,8 @@ public function total_hours($id,$fr,$to){
 		$sphr = 60 * 60;
 		foreach($a as $key){
 			$dtime = str_rem(':','07:16:00');
-			$get_late = str_rem(':',$key['in']);
-			$lates = ($get_late > $dtime) ? get_hm($key['in'],$key['date']) : $key['in'];
+			$get_late = str_rem(':',$key['_in']);
+			$lates = ($get_late > $dtime) ? get_hm($key['_in'],$key['date']) : $key['_in'];
 			$x = explode(':', $lates);
 			$hours = $hours + $x[0];
 			$mins = $mins + $x[1];
@@ -111,7 +111,7 @@ public function total_hours($id,$fr,$to){
 			//$total_per_day = ($per_day[0] <= 5) ? ($per_day[0] -1).":".$per_day[1] : ($per_day[0]-1)-$late_hour.":".$per_day[1];
 			//$final  = $final + $total_per_day;
 
-			//$total_mins = $total_mins + getDiff("".$key['date']." ",$key['date']." ".$key['out']);
+			//$total_mins = $total_mins + getDiff("".$key['date']." ",$key['date']." ".$key['_out']);
 			
 			//$over_all = HrtoMins($total_mins);
 			//get difference
@@ -129,24 +129,24 @@ public function total_hours($id,$fr,$to){
 			//$hr = $hr + $ex[0];
 			//$min = $min + $ex[1];
 
-			//echo $hours." ".$key['date']." - ".$key['in']." - ".$key['date']." - ".$key['out']." - >>>>".$s."<br />";
+			//echo $hours." ".$key['date']." - ".$key['_in']." - ".$key['date']." - ".$key['_out']." - >>>>".$s."<br />";
 
-			//$minlates = (str_rem(':',$key['in']) >$dtime) ? getmins($key['in']) : '>' ; 
-			//$hrlates = (str_rem(':',$key['in']) >$dtime) ? gethour($key['in']) : gethour($key['in']); 
+			//$minlates = (str_rem(':',$key['_in']) >$dtime) ? getmins($key['_in']) : '>' ; 
+			//$hrlates = (str_rem(':',$key['_in']) >$dtime) ? gethour($key['_in']) : gethour($key['_in']); 
 		
 
 
 
 			//$utime = str_rem(':','16:00:00');
-			//if(str_rem(':',$key['in']) >$dtime){
+			//if(str_rem(':',$key['_in']) >$dtime){
 					//get total minutes
-					//$a = getmins($key['in']);
+					//$a = getmins($key['_in']);
 					//$mins = $mins + $a;
 					//$lates['minutes'] = $mins;
 					//echo $key['date'].'<br />';
 					//!important: calculate total hours everyday
 				//	$start = strtotime($key['date']." 07:00:00");
-					//$end = strtotime($key['date']." ".$key['out']);
+					//$end = strtotime($key['date']." ".$key['_out']);
 				//	$dif = $end - $start;
 					//!important:total hour day minus one hour for breaktime
 					//$hr = round($dif/$sphr,0) - 1;
